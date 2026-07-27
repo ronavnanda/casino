@@ -1,9 +1,8 @@
 import random
 
 name = input("Enter your name: ")
-#ID = random.randint(0,1000)
-cashInitial = 1000
-cash = 1000
+cashInitial = int(input("How much cash do you want to start with? ")) #input normally gets as a string so add int() at front to get as integer
+cash = cashInitial
 playing = True
 print(f"Hello " + name + " and welcome to the casino! You have " + str(cash) + " dollars") #no println
 
@@ -17,7 +16,6 @@ while playing and cash > 0:
     print(f"You do not have enough cash")
     spend = int(input(f"How much of your cash would you like to spend? Needs to be less than or equal to " + str(cash) + " :"))
 
-  #print("Your ID is " + str(ID)) # cant have numbers and strings... so instead of "..." + 5, maybe ID = 5 and do "..." + ID. NVM you need to do +str(ID) or +str(5)
   numberRolled = random.randint(0,36)
   print(f"Your spin is " + str(numberRolled))
 
@@ -27,15 +25,22 @@ while playing and cash > 0:
     print(f"You won! Congrats player {name}. Your cash value is now {cash}.") #if u put the f in the front then u can do strings numbers etc! instead of str() each time
   else:
     cash = cash - spend
-    print(f"You lost xD, your cash value is now {cash}.")
+    print(f"Your cash value is now {cash}.")
 
-  var = input(f"would you like to continue? (Y/N): ")
+  if cash == 0:
+    break
+  else:
+    var = input(f"would you like to continue? (Y/N): ").upper()
 
-  if var.upper() == "N":
-    playing = False
+    while var != "Y" and var != "N":
+      print("Invalid input. Please enter Y or N.")
+      var = input(f"would you like to continue? (Y/N): ").upper()
+
+    if var == "N":
+      playing = False
 
 
 if(cash>=cashInitial):
   print("Goodbye!")
 else:
-  print("Bye sucker xD")
+  print("You lost xD")
