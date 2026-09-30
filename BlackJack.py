@@ -19,13 +19,15 @@ if card1Num == 1:
 
 if card2Num == 11:
   card2V = "Jack (11)";
-if card1Num == 12:
+if card2Num == 12:
   card2V = "Queen (12)";
 if card2Num == 13:
   card2V = "King (13)";
 if card2Num == 1:
   card2V = "Ace (1 or 10)";
 
+card1 = str(card1Num);
+card2 = str(card2Num);
 if card1Rand>8:
   card1 = str(card1V);
 
