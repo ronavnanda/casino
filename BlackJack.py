@@ -6,52 +6,51 @@ nums_array = [2,3,4,5,6,7,8,9,10,11,11,11,11,12,12,12,12,13,13,13,13,14]
 
 #set playing to yes
 playing = "Y"
-busted = False
 
 #game...
 while playing.lower() == "y":
 
-  #getting cards 1 and 2
-  card1Rand = random.randint(0,21)
-  card2Rand = random.randint(0,21)
-  card1Num = nums_array[card1Rand]
-  card2Num = nums_array[card2Rand]
+  busted = False
 
-  #making numbers to face value (ex: 11 --> Jack)
-  if card1Num == 11:
-    card1Value = "Jack"
-  if card1Num == 12:
-    card1Value = "Queen"
-  if card1Num == 13:
-    card1Value = "King"
-  if card1Num == 14:
-    card1Value = "Ace"
+  #getting cards 1 and 2
+  card1ArrayPosition = random.randint(0,21)
+  card2ArrayPosition = random.randint(0,21)
+  card1Number = nums_array[card1ArrayPosition]
+  card2Number = nums_array[card2ArrayPosition]
+
+  #set card numbers to the card name
+  card1 = str(card1Number)
+  card2 = str(card2Number)
+
+  #setting face cards to their proper value (ex: number 11 --> Jack)
+  if card1Number == 11:
+    card1 = "Jack"
+    card1Number = 10
+  if card1Number == 12:
+    card1 = "Queen"
+    card1Number = 10
+  if card1Number == 13:
+    card1 = "King"
+    card1Number = 10
+  if card1Number == 14:
+    card1 = "Ace"
+    card1Number = 11
 
   #now for 2nd card
-  if card2Num == 11:
-    card2Value = "Jack"
-  if card2Num == 12:
-    card2Value = "Queen"
-  if card2Num == 13:
-    card2Value = "King"
-  if card2Num == 14:
-    card2Value = "Ace"
+  if card2Number == 11:
+    card2 = "Jack"
+    card2Number = 10
+  if card2Number == 12:
+    card2 = "Queen"
+    card2Number = 10
+  if card2Number == 13:
+    card2 = "King"
+    card2Number = 10
+  if card2Number == 14:
+    card2 = "Ace"
+    card2Number = 11
 
-  #setting cards now to face value if neccessary
-  card1 = str(card1Num)
-  card2 = str(card2Num)
-  if card1Rand>8: #8 cuz 2-10 is first 9 numbers.
-    card1 = str(card1Value)
-    card1Num = 10
-
-  if card2Rand>8:
-    card2 = str(card2Value)
-    card2Num = 10
-
-  playerSum = card1Num + card2Num
-
-  #if total>21 and (card1Num == 1 or card2Num == 1): #this is implementation of ace, but can't work at this point so irrelevant here...
-  #  total = total - 9;
+  playerSum = card1Number + card2Number
 
   print(f"Your first card is {card1} and your second card is {card2}! Your total is {playerSum}.")
 
@@ -64,101 +63,101 @@ while playing.lower() == "y":
 
 #output if not hitting
   if hitting.lower() == "n":
-    print("You chose to stay")
+    print("You chose to stand")
 
 #while hitting logic
   while hitting.lower() == "y":
     hitting = "n";
     print("You are hitting...")
-    cardNum = nums_array[random.randint(0,21)]
+    cardNumber = nums_array[random.randint(0,21)]
 
-    if cardNum == 11:
-      cardName = "Jack"
-    if cardNum == 12:
+    card = cardNumber
+    if cardNumber == 11:
+      card = "Jack"
+      cardNumber = 10
+    if cardNumber == 12:
       cardName = "Queen"
-    if cardNum == 13:
+      cardNumber = 10
+    if cardNumber == 13:
       cardName = "King"
-    if cardNum == 14:
+      cardNumber = 10
+    if cardNumber == 14:
       cardName = "Ace"
+      cardNumber = 11
 
-    card = str(cardNum)
-    if cardNum>8: #now we properly make cards Jack Queen King Ace
-      card = str(cardName)
-      cardNum = 10
+    playerSum += cardNumber
 
-    playerSum += cardNum
+    print(f"Your card is {card}! Your total is now {playerSum}.")
 
-    print(f"Your card is {card}! Your total is {playerSum}.")
-
+    #determine if busted or not, determine if user will continue to hit.
     if playerSum>21:
       print("You busted")
       busted = True;
+    elif playerSum==21:
+      hitting = "n"
     else:
       hitting = input("Would you like to hit? (Y/N): ")
   
   #dealer setup
   if(busted != True):
     print("Now it is time for the dealer!")
-    dealerCard1Num = nums_array[random.randint(0,21)]
-    dealerCard2Num = nums_array[random.randint(0,21)]
+    dealerCard1Number = nums_array[random.randint(0,21)]
+    dealerCard2Number = nums_array[random.randint(0,21)]
     
-    cardName1 = str(dealerCard1Num)
-    card1V = dealerCard1Num
-    cardName2 = str(dealerCard2Num)
-    card2V = dealerCard2Num
-                    
-    if dealerCard1Num == 11:
-      cardName1 = "Jack"
-      card1V = 10
-    if dealerCard1Num == 12:
-      cardName1 = "Queen"
-      card1V = 10
-    if dealerCard1Num == 13:
-      cardName1 = "King"
-      card1V = 10
-    if dealerCard1Num == 14:
-      cardName1 = "Ace"
-      card1V = 10
+    dealerCard1 = str(dealerCard1Number)                
+    if dealerCard1Number == 11:
+      dealerCard1 = "Jack"
+      dealerCard1Number = 10
+    if dealerCard1Number == 12:
+      dealerCard1 = "Queen"
+      dealerCard1Number = 10
+    if dealerCard1Number == 13:
+      dealerCard1 = "King"
+      dealerCard1Number = 10
+    if dealerCard1Number == 14:
+      dealerCard1 = "Ace"
+      dealerCard1Number = 11
 
-    if dealerCard2Num == 11:
-      cardName2 = "Jack"
-      card2V = 10
-    if dealerCard2Num == 12:
-      cardName2 = "Queen"
-      card2V = 10
-    if dealerCard2Num == 13:
-      cardName2 = "King"
-      card2V = 10
-    if dealerCard2Num == 14:
-      cardName2 = "Ace"
-      card2V = 10
+    dealerCard2 = str(dealerCard2Number)
+    if dealerCard2Number == 11:
+      dealerCard2 = "Jack"
+      dealerCard2Number = 10
+    if dealerCard2Number == 12:
+      dealerCard2 = "Queen"
+      dealerCard2Number = 10
+    if dealerCard2Number == 13:
+      dealerCard2 = "King"
+      dealerCard2Number = 10
+    if dealerCard2Number == 14:
+      dealerCard2 = "Ace"
+      dealerCard2Number = 11
   
-    dealerSum = card1V + card2V
+    dealerSum = dealerCard1Number + dealerCard2Number
 
     if dealerSum > 16:
-      print(f"Dealer has {cardName1} and {cardName2}, totaling to {dealerSum}. Dealer has to stand")
-    while dealerSum<17:
-      print(f"Dealer has {cardName1} and {cardName2}, totaling to {dealerSum}. Dealer has to hit")
+      print(f"Dealer has {dealerCard1} and {dealerCard2}, totaling to {dealerSum}. Dealer has to stand")
+    while dealerSum<17 and dealerSum<playerSum:
+      print(f"Dealer has {dealerCard1} and {dealerCard2}, totaling to {dealerSum}. Dealer has to hit")
       print("dealer is hitting...")
-      dealerCardNum = nums_array[random.randint(0,21)]
-      cardName = str(dealerCardNum)
-      cardV = dealerCardNum
-                    
-      if dealerCardNum == 11:
-        cardName = "Jack"
-        cardV = 10
-      if dealerCardNum == 12:
-        cardName = "Queen"
-        cardV = 10
-      if dealerCardNum == 13:
-        cardName = "King"
-        cardV = 10
-      if dealerCardNum == 14:
-        cardName = "Ace"
-        cardV = 10
+      dealerCardNumber = nums_array[random.randint(0,21)]
+      dealerCard = str(dealerCardNumber)
+                        
+      if dealerCardNumber == 11:
+        dealerCard = "Jack"
+        dealerCardNumber = 10
+      if dealerCardNumber == 12:
+        dealerCard = "Queen"
+        dealerCardNumber = 10
+      if dealerCardNumber == 13:
+        dealerCard = "King"
+        dealerCardNumber = 10
+      if dealerCardNumber == 14:
+        dealerCard = "Ace"
+        dealerCardNumber = 11
         
-      dealerSum += cardV
-      print(f"Dealer got a {cardName}. Total sum is now {dealerSum}")
+      dealerSum += dealerCardNumber
+
+      print(f"Dealer got a {dealerCard}. Total sum is now {dealerSum}")
       if dealerSum > 21:
         print("Dealer busted")
   
