@@ -21,7 +21,7 @@ while numberOfRolls > 100:
 while numberOfRolls < 1:
   numberOfRolls = int(input("Please enter a number greater than 0: "))
 
-expectedWins = (7 - numToWin) / 6 * numberOfRolls
+expectedWins = int((7 - numToWin) / 6 * numberOfRolls)
 print(f"Expected wins: {expectedWins:.0f}")
 
 #roll the dice
