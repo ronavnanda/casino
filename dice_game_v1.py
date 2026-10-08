@@ -1,30 +1,41 @@
 #Dice Game Get it greater than a number
 import random
 
-#set up basics
-name = input("What is your name? ")
-numToWin = 5
 count = 0
 
-#Welcome them to casino
-print(f"Hello {name} and welcome to the Ave Casino!") 
+#set up basics
+name = input("What is your name? ")
+
+#forces input to be an integer
+numToWin = int(input(f"Welcome {name}! Which number do you hope to roll equal to or more? (1-6) "))
+while numToWin <= 0:
+  numToWin = int(input("Please enter a number greater than 0: "))
+while numToWin >= 7:
+  numToWin = int(input("Please enter a number less than 7: "))
+
+#Welcome player
 print(f"You are trying to roll a number greater than or equal to {numToWin}.")
+numberOfRolls = int(input("How many times would you like to roll? (100 max) "))
+while numberOfRolls > 100:
+  numberOfRolls = int(input("Please enter a number less than or equal to 100: "))
+while numberOfRolls < 1:
+  numberOfRolls = int(input("Please enter a number greater than 0: "))
+
+expectedWins = (7 - numToWin) / 6 * numberOfRolls
+print(f"Expected wins: {expectedWins:.0f}")
 
 #roll the dice
-x = random.randint(1,6)
-print(f"Your first roll is {x}.")
-
-#determine if player has won
-if x>=numToWin:
-  print(f"You won! Congrats {name}") 
-else:
-  print("You lost xD")
-
-#add a counter to track loss streak
-while x<numToWin:
-  count += 1 #no count++
+for i in range(numberOfRolls):
   x = random.randint(1,6)
-  print("You just rolled a " + str(x))
+  print(f"You rolled a {x}.")
+  if x>=numToWin:
+    count += 1
 
-if count>0:
-  print(f"It took {count} more roll(s) to win! Congrats player {ID}")
+if(count>expectedWins):
+  statement = "You got lucky!"
+elif(count<expectedWins):
+  statement = "You got unlucky..."
+else:
+  statement = "Your result was expected."
+print(f"You won {count} times. You were expected to win {expectedWins:.0f} times. {statement}")
+  
