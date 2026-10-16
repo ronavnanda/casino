@@ -1,11 +1,39 @@
-import numpy as np
+#coin flipping
+
+#import numpy as np
 
 #10000 = 10_000 but underscore helps with readability
 #numFlips = 10_000
-rng1 = np.random.default_rng(42)
-rng2 = np.random.default_rng(42)
-rng3 = np.random.default_rng(7)
+#rng1 = np.random.default_rng(42)
+#rng2 = np.random.default_rng(42)
+#rng3 = np.random.default_rng(7)
 
-print(rng1.integers(0, 2, size=5))
-print(rng2.integers(0, 2, size=5))
-print(rng3.integers(0, 2, size=5))
+#print(rng1.integers(0, 2, size=5))
+#print(rng2.integers(0, 2, size=5))
+#print(rng3.integers(0, 2, size=5))
+
+import random
+
+playing = True
+
+def coin_flip():
+  val = random.randint(0,1)
+  if val == 0:
+    return "Tails"
+  else:
+    return "Heads"
+
+print("Welcome, first coin toss incoming")
+
+while playing:
+  print("flipping...")
+  print(f"It's {coin_flip()}")
+  continuePlaying = input("Would you like to continue playing? (Y/N): ")
+  playing = False
+
+  while continuePlaying.upper() not in ("Y", "N"):
+    print("Invalid input. Please enter Y or N.")
+    continuePlaying = input("Would you like to continue playing? (Y/N): ")
+
+  if continuePlaying.upper() == "N":
+    playing = False
