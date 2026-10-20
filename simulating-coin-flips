@@ -37,3 +37,7 @@ while playing:
 
   if continuePlaying.upper() == "N":
     playing = False
+  elif continuePlaying.upper() == "Y":
+    playing = True
+
+print("Goodbye")
