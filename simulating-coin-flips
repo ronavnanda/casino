@@ -23,21 +23,6 @@ def coin_flip():
   else:
     return "Heads"
 
-print("Welcome, first coin toss incoming")
-
-while playing:
-  print("flipping...")
-  print(f"It's {coin_flip()}")
-  continuePlaying = input("Would you like to continue playing? (Y/N): ")
-  playing = False
-
-  while continuePlaying.upper() not in ("Y", "N"):
-    print("Invalid input. Please enter Y or N.")
-    continuePlaying = input("Would you like to continue playing? (Y/N): ")
-
-  if continuePlaying.upper() == "N":
-    playing = False
-  elif continuePlaying.upper() == "Y":
-    playing = True
-
-print("Goodbye")
+flips = int(input(f"How many coin flips? "))
+for i in range(flips):
+  print(coin_flip())
