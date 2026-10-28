@@ -9,18 +9,26 @@ nums_array = [
     13,13,13,13,
     14
 ]
-card_names = {11: "Jack", 12: "Queen", 13: "King", 14: "Ace"} #this is the dictionary
+
+#this is the dictionary
+card_names = {11: "Jack", 12: "Queen", 13: "King", 14: "Ace"} 
 
 #create a function to deal cards
-def deal_card():
-  #random.choice(nums_array) is same as nums_array[random.randint(0,21)]
+def deal_card(aceCount):
   cardValue = random.choice(nums_array) #get a value from the array
-  card = card_names.get(cardValue, str(cardValue)) #this is .get() which looks for a key in the dictionary. str(cardValue) is returned when key isn't found
   if cardValue == 14:
     aceCount += 1
+  card = card_names.get(cardValue, str(cardValue)) #this is .get() which looks for a key in the dictionary. str(cardValue) is returned when key isn't found
   cardValue = 10 if cardValue in (11,12,13) else 11 if cardValue == 14 else cardValue #compact way to write if/else logic
-  return card, cardValue
+  return card, cardValue, aceCount
 
+def determineWinner():
+  if(playerSum>dealerSum or dealerSum>21):
+      return "You won!"
+  elif(playerSum==dealerSum):
+      return "It's a tie"
+  else:
+      return "You lost"
 
 #set playing to yes
 playing = "Y"
@@ -32,8 +40,8 @@ while playing.lower() == "y":
   busted = False
 
   #getting cards 1 and 2
-  card1, card1Number = deal_card()
-  card2, card2Number = deal_card()
+  card1, card1Number, aceCount = deal_card(aceCount)
+  card2, card2Number, aceCount = deal_card(aceCount)
 
   playerSum = card1Number + card2Number
 
@@ -59,15 +67,11 @@ while playing.lower() == "y":
     hitting = "n";
     print("You are hitting...")
 
-    card, cardNumber = deal_card()
-
-    #ensure Ace is worth 1 instead of 11 to avoid going bust.
-    if cardNumber == 11 and playerSum > 10:
-      cardNumber = 1
-      aceCount -= 1
+    card, cardNumber, aceCount = deal_card(aceCount)
 
     playerSum += cardNumber
 
+    #if sum is greater than 21, and they have an ace, make the ace worth 1 instead of 11
     while aceCount > 0 and playerSum > 21:
       aceCount -= 1
       playerSum -= 10
@@ -87,8 +91,8 @@ while playing.lower() == "y":
   if(busted != True):
     aceCount = 0
     print("Now it is time for the dealer!")
-    dealerCard1, dealerCard1Value = deal_card()
-    dealerCard2, dealerCard2Value = deal_card()
+    dealerCard1, dealerCard1Value, aceCount = deal_card(aceCount)
+    dealerCard2, dealerCard2Value, aceCount = deal_card(aceCount)
 
     dealerSum = dealerCard1Value + dealerCard2Value
 
@@ -99,15 +103,12 @@ while playing.lower() == "y":
 
     if dealerSum > 16:
       print(f"Dealer has {dealerCard1} and {dealerCard2}, totaling to {dealerSum}. Dealer has to stand")
-    while dealerSum<17 and dealerSum<playerSum:
+    while dealerSum<17:
       print(f"Dealer has {dealerCard1} and {dealerCard2}, totaling to {dealerSum}. Dealer has to hit")
       print("dealer is hitting...")
 
-      dealerCard, dealerCardValue = deal_card()
-
-      if dealerCardValue == 11 and dealerSum > 10:
-        dealerCardValue = 1
-        aceCount -= 1
+      #get dealer their card
+      dealerCard, dealerCardValue, aceCount = deal_card(aceCount)
 
       dealerSum += dealerCardValue
 
@@ -119,12 +120,7 @@ while playing.lower() == "y":
       if dealerSum > 21:
         print("Dealer busted")
 
-    if(playerSum>dealerSum or dealerSum>21):
-      print("You won!")
-    elif(playerSum==dealerSum):
-      print("It's a tie")
-    else:
-      print("You lost")
+    print(determineWinner())
 
   playing = input("Would you like to continue playing? (Y/N): ")
   while playing.upper() != "Y" and playing.upper() != "N":
